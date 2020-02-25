@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <title>Add Joke</title>
+</head>
+<body>
+    <nav class="navbar mb-0 h5 navbar-dark bg-dark">
+        <a href="/" class="navbar-brand ">Go To Jokes</a>
+    </nav>
+<div class="container">
+    <h1>Submit Joke</h1>
+        <form class="form-group" action="#" th:action="@{/addJoke}" th:object="${joke}" method="post" >
+          <label for="content">Content</label>
+            <textarea class="form-control" th:field="*{content}" id="content"></textarea>
+            <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="text-danger"></span> <br/>
+            <label for="category">Category</label><br/>
+            <select th:field="*{category}" id="category">
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+            </select>
+            <br/>
+            <input type="submit" value="Add Joke"/>
+        </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <title>Hello</title>
+</head>
+<body>
+    <nav style="color:white; padding: 15px;" class="navbar mb-0 h5 navbar-dark bg-dark">
+        <ul class="nav navbar-nav">
+            <li>Best Jokes</li>
+        </ul>
+        <ul class="nav navbar-right">
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+    </nav>
+
+<div class="container p-3 mb-2 bg-light text-dark">
+    <h1>Welcome Page</h1>
+    <a href="/new">Add New Joke</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Kategorija</th>
+            <th>Vic</th>
+            <th>Likes</th>
+            <th>Dislikes</th>
+            <th>Razlika</th>
+            <th text-align="center" colspan="2">Glasaj</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="jokes, iter : ${joke}">
+            <td th:text="${iter.index + 1}"></td>
+            <td th:text="${jokes.category.name}"></td>
+            <td th:text="${jokes.content}"></td>
+            <td th:text="${jokes.likes}"></td>
+            <td th:text="${jokes.dislikes}"></td>
+            <td th:text="${jokes.likes - jokes.dislikes}"></td>
+            <td><form action="#" th:action="@{/addLike/{id}(id=${jokes.id})}" method="post">
+                    <input type="submit" class="btn btn-success" value="Like" />
+            </form></td>
+            <td><form action="#" th:action="@{/addDislike/{id}(id=${jokes.id})}" method="post">
+                    <input type="submit" class="btn btn-danger" value="Dislike"/>
+            </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
